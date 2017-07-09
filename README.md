@@ -55,7 +55,7 @@ const eslint = require('gulp-eslint');
 
 gulp.task('prettier', () =>
   gulp
-    .src(['./src/**/*.test.js', './tasks/*.js', './gulpfile.js'])
+    .src(['./src/**/*.js', './gulpfile.js'])
     .pipe(prettierPlugin()
     .pipe(eslint())
     .pipe(eslint.failAfterError());
@@ -98,7 +98,7 @@ const isCI = require('is-ci');
 
 gulp.task('prettier', () =>
   gulp
-    .src(['./src/**/*.test.js', './tasks/*.js', './gulpfile.js'])
+    .src(['./src/**/*.js', './gulpfile.js'])
     .pipe(
       prettierPlugin(
         {
