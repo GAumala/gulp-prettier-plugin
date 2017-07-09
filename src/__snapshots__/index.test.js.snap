@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`calls flush callback with error when plugin option validate is set and files that need formatting are found 1`] = `
+"let array = [
+  \\"JavaScript\\",
+  \\"TypeScript\\",
+  \\"CoffeeScript\\",
+  \\"elm\\",
+  \\"Python\\",
+  \\"Ruby\\",
+  \\"Haskell\\",
+  \\"Go\\"
+];
+"
+`;
+
+exports[`calls flush callback with error when plugin option validate is set and files that need formatting are found 2`] = `
+"let array = [\\"JavaScript\\", \\"TypeScript\\"];
+"
+`;
+
+exports[`calls flush callback with error when plugin option validate is set and files that need formatting are found 3`] = `
+[Error: The following files have not been formatted with prettier:
+
+- /src/index.js 
+]
+`;
+
+exports[`calls transform callback with error when a non-buffer vinyl is passed 1`] = `[Error: this plugin only suppports buffers.]`;
+
+exports[`can pass options to prettier such as trailing commas and single quotes 1`] = `
+"db
+  .insertarCliente(
+    'ruc',
+    'nombre',
+    'direccion',
+    'email',
+    'telefono1',
+    'telefono2',
+    'descDefault'
+  )
+  .then(function() {
+    //OK!
+    res.status(200).send('OK');
+  });
+"
+`;
+
+exports[`only pushes files that need formatting if plugin option "filter" is set 1`] = `
+"let array = [
+  \\"JavaScript\\",
+  \\"TypeScript\\",
+  \\"CoffeeScript\\",
+  \\"elm\\",
+  \\"Python\\",
+  \\"Ruby\\",
+  \\"Haskell\\",
+  \\"Go\\"
+];
+"
+`;
+
+exports[`pretty prints javascript code 1`] = `
+"let x = 1;
+const sum = (a, b) => a - a + a - a + a - a + a + b - b + b - b + b - b + b;
+sum(x, 2);
+"
+`;
+
+exports[`pretty prints typescript code when the typescript parser is set 1`] = `
+"const isValidReactElement = (
+  element: string | ReactElement<any> | null
+): element is ReactElement<any> => {
+  return element != null && (element as ReactElement<any>).props !== undefined;
+};
+"
+`;

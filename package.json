@@ -1,0 +1,59 @@
+{
+  "name": "gulp-prettier-plugin",
+  "version": "1.0.0",
+  "description": "gulp plugin to format source code with prettier",
+  "main": "./dist/index.js",
+  "repository": "https://github.com/GAumala/gulp-prettier-plugin",
+  "author": "Gabriel Aumala",
+  "license": "MIT",
+  "keywords": [
+    "gulpplugin",
+    "prettier"
+  ],
+  "files": [
+    "./dist/"
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "mapCoverage": true,
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest/preprocessor.js",
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/",
+      "<rootDir>/demo/"
+    ]
+  },
+  "peerDependencies": {
+    "prettier": "^1.x"
+  },
+  "dependencies": {
+    "gulp-util": "^3.0.8"
+  },
+  "devDependencies": {
+    "@types/gulp-util": "^3.0.31",
+    "@types/node": "^8.0.9",
+    "babel-preset-es2015": "^6.24.1",
+    "coveralls": "^2.13.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^4.0.0",
+    "gulp-tslint": "^8.1.1",
+    "jest": "^20.0.4",
+    "prettier": "^1.5.2",
+    "ts-jest": "^20.0.7",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "tslint": "gulp tslint",
+    "prettier-js": "gulp prettier-js",
+    "build": "tsc -d --outDir ./dist ./src/index.ts"
+  }
+}
