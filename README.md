@@ -39,8 +39,8 @@ const prettierPlugin = require('gulp-prettier-plugin');
 
 gulp.task('prettier', () =>
   gulp
-    .src(['./src/**/*.test.js', './tasks/*.js', './gulpfile.js'])
-    .pipe(prettierPlugin(undefined, { filter: true })
+    .src(['./src/**/*.js', './gulpfile.js'])
+    .pipe(prettierPlugin(undefined, { filter: true }))
     // passing a function that returns base will write the files in-place
     .pipe(gulp.dest(file => file.base))
 );
@@ -56,7 +56,7 @@ const eslint = require('gulp-eslint');
 gulp.task('prettier', () =>
   gulp
     .src(['./src/**/*.js', './gulpfile.js'])
-    .pipe(prettierPlugin()
+    .pipe(prettierPlugin())
     .pipe(eslint())
     .pipe(eslint.failAfterError());
     // passing a function that returns base will write the files in-place
@@ -88,13 +88,13 @@ gulp.task('prettier-ts', () =>
 );
 ```
 
-Attempt to format all JS files with custom options, and throw an error only in
-CI environments if any file hasn't already been formatted.
+
+Scan al JS files and when it finds a file that hasn't been formatted yet, format it in-place and save the path so that if it is running in a CI environment, it throws an error detailing the files that were not already formatted. 
 
 ``` javascript
 const gulp = require('gulp');
 const prettierPlugin = require('gulp-prettier-plugin');
-const isCI = require('is-ci');
+const isCI = process.env.CI;
 
 gulp.task('prettier', () =>
   gulp
@@ -106,6 +106,7 @@ gulp.task('prettier', () =>
           singleQuote: true,
         },
         {
+          filter: true,
           validate: isCI,
         }
       )
