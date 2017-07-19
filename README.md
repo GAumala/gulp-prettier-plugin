@@ -87,9 +87,31 @@ gulp.task('prettier-ts', () =>
     .pipe(gulp.dest(file => file.base))
 );
 ```
+Same as the previous example, but written in Typescript
 
+``` typescript
+import * as gulp from 'gulp'
+import * as prettierPlugin from 'gulp-prettier-plugin'
 
-Scan al JS files and when it finds a file that hasn't been formatted yet, format it in-place and save the path so that if it is running in a CI environment, it throws an error detailing the files that were not already formatted. 
+gulp.task('prettier-ts', () =>
+  gulp
+    .src(['./src/**/*.ts', '!./src/**/*.d.ts'])
+    .pipe(
+      prettierPlugin(
+        {
+          parser: 'typescript',
+        },
+        {
+          filter: true,
+        }
+      )
+    )
+    // passing a function that returns base will write the files in-place
+    .pipe(gulp.dest(file => file.base))
+);
+```
+
+Scan al JS files and when it finds a file that hasn't been formatted yet, format it in-place and save the path so that if it is running in a CI environment, it throws an error detailing the files that were not already formatted.
 
 ``` javascript
 const gulp = require('gulp');
