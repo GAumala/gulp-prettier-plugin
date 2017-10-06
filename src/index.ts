@@ -1,6 +1,6 @@
-import { Buffer } from 'buffer';
 import { PluginError } from 'gulp-util';
 import * as prettier from 'prettier';
+import { Buffer } from 'safe-buffer';
 import { Transform } from 'stream';
 import * as Vinyl from 'vinyl';
 

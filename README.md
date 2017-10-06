@@ -58,7 +58,7 @@ gulp.task('prettier', () =>
     .src(['./src/**/*.js', './gulpfile.js'])
     .pipe(prettierPlugin())
     .pipe(eslint())
-    .pipe(eslint.failAfterError());
+    .pipe(eslint.failAfterError())
     // passing a function that returns base will write the files in-place
     .pipe(gulp.dest(file => file.base))
 );

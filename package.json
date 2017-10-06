@@ -1,6 +1,6 @@
 {
   "name": "gulp-prettier-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "gulp plugin to format source code with prettier",
   "main": "./dist/index.js",
   "repository": "https://github.com/GAumala/gulp-prettier-plugin",
@@ -34,7 +34,8 @@
     "prettier": "^1.x"
   },
   "dependencies": {
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "safe-buffer": "^5.1.1"
   },
   "devDependencies": {
     "@types/gulp-util": "^3.0.31",
