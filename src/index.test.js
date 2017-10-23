@@ -2,17 +2,23 @@ import { Buffer } from 'buffer';
 import Vinyl from 'vinyl';
 import prettierPlugin from './index.ts';
 
-const newFile = contents => {
+const newFile = (contents, name) => {
+  if (! name) name = 'index.js'
   return new Vinyl({
     base: '/src',
     contents: Buffer.from(contents),
     cwd: '/',
-    path: '/src/index.js',
+    path: `/src/${name}`,
   });
 };
 
-const testTransformFile = (plugin, contents, callback) => {
-  const file = newFile(contents);
+const testTransformFile = (plugin, contents, name, callback) => {
+  const file = newFile(contents, name);
+  plugin._transform(file, 'utf8', callback);
+};
+
+const testTransformFileWithName = (plugin, contents, name, callback) => {
+  const file = newFile(contents, name);
   plugin._transform(file, 'utf8', callback);
 };
 
@@ -27,9 +33,9 @@ const expectZeroTransformErrors = (err, file) => {
 
 const expectZeroFlushErrors = err => expect(err).toBe(undefined);
 
-const transformWithZeroErrors = (prettierOptions, pluginOptions, contents) => {
+const transformWithZeroErrors = (prettierOptions, pluginOptions, contents, name) => {
   const plugin = prettierPlugin(prettierOptions, pluginOptions);
-  testTransformFile(plugin, contents, expectZeroTransformErrors);
+  testTransformFile(plugin, contents, name, expectZeroTransformErrors);
   testFlush(plugin, expectZeroFlushErrors);
 };
 
@@ -41,6 +47,28 @@ it('pretty prints javascript code', () => {
       const sum = (a, b) => a - a + a - a + a - a + a + b - b + b - b + b - b + b
       sum(x, 2)`
   );
+});
+
+it('pretty prints LESS code', () => {
+  transformWithZeroErrors(
+    undefined,
+    undefined,
+`@base: #f938ab;
+
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style    @c;
+  box-shadow:         @style   @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  div { .box-shadow(0 0 5px, 30%) }
+}
+`, 'style.less');
 });
 
 it('can pass options to prettier such as trailing commas and single quotes', () => {
@@ -74,9 +102,9 @@ it('only pushes files that need formatting if plugin option "filter" is set', ()
   const plugin = prettierPlugin(undefined, { filter: true });
   const uglyFile =
     'let array = ["JavaScript", "TypeScript", "CoffeeScript", "elm", "Python", "Ruby", "Haskell", "Go"]';
-  testTransformFile(plugin, uglyFile, expectZeroTransformErrors);
+  testTransformFile(plugin, uglyFile, 'test.js', expectZeroTransformErrors);
   const prettyFile = 'let array = ["JavaScript", "TypeScript"];\n';
-  testTransformFile(plugin, prettyFile, (err, file) => {
+  testTransformFile(plugin, prettyFile, 'test2.js', (err, file) => {
     expect(err).toBe(null);
     expect(file).toBe(null);
   });
@@ -87,9 +115,9 @@ it('calls flush callback with error when plugin option validate is set and files
   const plugin = prettierPlugin(undefined, { validate: true });
   const uglyFile =
     'let array = ["JavaScript", "TypeScript", "CoffeeScript", "elm", "Python", "Ruby", "Haskell", "Go"]';
-  testTransformFile(plugin, uglyFile, expectZeroTransformErrors);
+  testTransformFile(plugin, uglyFile, 'index.js', expectZeroTransformErrors);
   const prettyFile = 'let array = ["JavaScript", "TypeScript"];\n';
-  testTransformFile(plugin, prettyFile, expectZeroTransformErrors);
+  testTransformFile(plugin, prettyFile, 'index.js', expectZeroTransformErrors);
   testFlush(plugin, err => expect(err).toMatchSnapshot());
 });
 

@@ -56,9 +56,9 @@ export class PrettierTransform extends Transform {
   }
 
   private transformBuffer(inputFile: Vinyl, callback: (Error, Vinyl) => void) {
-    const { _contents } = inputFile;
+    const { _contents, path } = inputFile;
     const code = _contents.toString();
-    const prettierOptions = this.prettierOptions;
+    const prettierOptions = { ...this.prettierOptions, filepath: path };
     const prettierSourceCode = getPrettierSourceCode(code, prettierOptions);
     const outputFile = this.createOutputFile(prettierSourceCode, inputFile);
     callback(null, outputFile);
