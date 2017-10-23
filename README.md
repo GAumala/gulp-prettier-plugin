@@ -57,7 +57,7 @@ gulp.task("prettier", () =>
     .pipe(gulp.dest(file => file.base))
 );
 ```
-Same as the previous example, but written in Typescript
+Same as the previous example, but written in TypeScript
 
 ``` typescript
 import * as gulp from 'gulp'
