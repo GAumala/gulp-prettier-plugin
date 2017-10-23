@@ -46,6 +46,33 @@ gulp.task('prettier', () =>
 );
 ```
 
+Format in-place all TypeScript and LESS files that haven't already been formatted:
+
+``` javascript
+gulp.task("prettier", () =>
+  gulp
+    .src(["./src/**/*.ts", "./src/**/*.less"])
+    .pipe(prettierPlugin(undefined, { filter: true }))
+    // passing a function that returns base will write the files in-place
+    .pipe(gulp.dest(file => file.base))
+);
+```
+Same as the previous example, but written in Typescript
+
+``` typescript
+import * as gulp from 'gulp'
+import * as prettierPlugin from 'gulp-prettier-plugin'
+
+gulp.task('prettier', () =>
+  gulp
+    .src(['./src/**/*.ts', './src/**/*.less'])
+    .pipe(prettierPlugin(undefined, { filter: true })
+    )
+    // passing a function that returns base will write the files in-place
+    .pipe(gulp.dest(file => file.base))
+);
+```
+
 Format each and every JS file in place, using the [trailing-comma](https://github.com/prettier/prettier#trailing-commas) and [single-quote](https://github.com/prettier/prettier#quotes) options, and pipe any other plugin such as [eslint](eslint.org) before writing:
 
 ``` javascript
@@ -59,53 +86,6 @@ gulp.task('prettier', () =>
     .pipe(prettierPlugin())
     .pipe(eslint())
     .pipe(eslint.failAfterError())
-    // passing a function that returns base will write the files in-place
-    .pipe(gulp.dest(file => file.base))
-);
-```
-
-Format typescript files (using the [parser option](https://github.com/prettier/prettier#parser)) that haven't already been formatted, skipping definitions:
-
-``` javascript
-const gulp = require('gulp');
-const prettierPlugin = require('gulp-prettier-plugin');
-
-gulp.task('prettier-ts', () =>
-  gulp
-    .src(['./src/**/*.ts', '!./src/**/*.d.ts'])
-    .pipe(
-      prettierPlugin(
-        {
-          parser: 'typescript',
-        },
-        {
-          filter: true,
-        }
-      )
-    )
-    // passing a function that returns base will write the files in-place
-    .pipe(gulp.dest(file => file.base))
-);
-```
-Same as the previous example, but written in Typescript
-
-``` typescript
-import * as gulp from 'gulp'
-import * as prettierPlugin from 'gulp-prettier-plugin'
-
-gulp.task('prettier-ts', () =>
-  gulp
-    .src(['./src/**/*.ts', '!./src/**/*.d.ts'])
-    .pipe(
-      prettierPlugin(
-        {
-          parser: 'typescript',
-        },
-        {
-          filter: true,
-        }
-      )
-    )
     // passing a function that returns base will write the files in-place
     .pipe(gulp.dest(file => file.base))
 );

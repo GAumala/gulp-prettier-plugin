@@ -3,7 +3,7 @@ import Vinyl from 'vinyl';
 import prettierPlugin from './index.ts';
 
 const newFile = (contents, name) => {
-  if (! name) name = 'index.js'
+  if (!name) name = 'index.js';
   return new Vinyl({
     base: '/src',
     contents: Buffer.from(contents),
@@ -33,7 +33,12 @@ const expectZeroTransformErrors = (err, file) => {
 
 const expectZeroFlushErrors = err => expect(err).toBe(undefined);
 
-const transformWithZeroErrors = (prettierOptions, pluginOptions, contents, name) => {
+const transformWithZeroErrors = (
+  prettierOptions,
+  pluginOptions,
+  contents,
+  name
+) => {
   const plugin = prettierPlugin(prettierOptions, pluginOptions);
   testTransformFile(plugin, contents, name, expectZeroTransformErrors);
   testFlush(plugin, expectZeroFlushErrors);
@@ -53,7 +58,7 @@ it('pretty prints LESS code', () => {
   transformWithZeroErrors(
     undefined,
     undefined,
-`@base: #f938ab;
+    `@base: #f938ab;
 
 
 .box-shadow(@style, @c) when (iscolor(@c)) {
@@ -68,7 +73,9 @@ it('pretty prints LESS code', () => {
   border-color: lighten(@base, 30%);
   div { .box-shadow(0 0 5px, 30%) }
 }
-`, 'style.less');
+`,
+    'style.less'
+  );
 });
 
 it('can pass options to prettier such as trailing commas and single quotes', () => {
