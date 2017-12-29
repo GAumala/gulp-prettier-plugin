@@ -1,6 +1,6 @@
 {
   "name": "gulp-prettier-plugin",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "gulp plugin to format source code with prettier",
   "main": "./dist/index.js",
   "repository": "https://github.com/GAumala/gulp-prettier-plugin",
