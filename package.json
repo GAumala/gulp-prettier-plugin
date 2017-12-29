@@ -8,7 +8,9 @@
   "license": "MIT",
   "keywords": [
     "gulpplugin",
-    "prettier"
+    "prettier",
+    "gulp",
+    "formatter"
   ],
   "files": [
     "./dist/"
@@ -34,16 +36,15 @@
     "prettier": "^1.x"
   },
   "dependencies": {
-    "gulp-util": "^3.0.8",
+    "plugin-error": "^0.1.2",
     "safe-buffer": "^5.1.1"
   },
   "devDependencies": {
-    "@types/gulp-util": "^3.0.31",
     "@types/node": "^8.0.9",
+    "@types/plugin-error": "^0.1.0",
     "babel-preset-es2015": "^6.24.1",
     "coveralls": "^2.13.1",
     "gulp": "^3.9.1",
-    "gulp-eslint": "^4.0.0",
     "gulp-tslint": "^8.1.1",
     "jest": "^20.0.4",
     "prettier": "1.5.2",

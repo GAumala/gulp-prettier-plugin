@@ -1,4 +1,4 @@
-import { PluginError } from 'gulp-util';
+import * as PluginError from 'plugin-error';
 import * as prettier from 'prettier';
 import { Buffer } from 'safe-buffer';
 import { Transform } from 'stream';
